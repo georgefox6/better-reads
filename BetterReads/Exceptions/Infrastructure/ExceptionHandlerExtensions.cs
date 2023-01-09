@@ -1,5 +1,6 @@
 using BetterReads.Api.Exceptions.BookNotFound;
 using BetterReads.Api.Exceptions.ISBNNotValid;
+using BetterReads.Api.Exceptions.PageNumberNotValid;
 
 namespace BetterReads.Api.Exceptions.Infrastructure
 {
@@ -21,7 +22,8 @@ namespace BetterReads.Api.Exceptions.Infrastructure
                 .AddDefaultHttpContextExceptionHandlers()
                 // Books
                 .AddHttpContextExceptionHandler<BookNotFoundException, BookNotFoundExceptionHandler>()
-                .AddHttpContextExceptionHandler<ISBNNotValidException, ISBNNotValidExceptionHandler>();
+                .AddHttpContextExceptionHandler<ISBNNotValidException, ISBNNotValidExceptionHandler>()
+                .AddHttpContextExceptionHandler<PageNumberNotValidException, PageNumberNotValidExceptionHandler>();
                 
 
             return services;
