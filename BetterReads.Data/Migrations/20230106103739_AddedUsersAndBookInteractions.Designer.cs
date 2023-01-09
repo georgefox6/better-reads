@@ -4,6 +4,7 @@ using BetterReads.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BetterReads.Data.Migrations
 {
     [DbContext(typeof(BetterReadsContext))]
-    partial class BetterReadsContextModelSnapshot : ModelSnapshot
+    [Migration("20230106103739_AddedUsersAndBookInteractions")]
+    partial class AddedUsersAndBookInteractions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +27,11 @@ namespace BetterReads.Data.Migrations
 
             modelBuilder.Entity("BetterReads.Data.Models.Book", b =>
                 {
-                    b.Property<string>("ISBN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -34,6 +40,10 @@ namespace BetterReads.Data.Migrations
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -41,7 +51,7 @@ namespace BetterReads.Data.Migrations
                     b.Property<int>("Pages")
                         .HasColumnType("int");
 
-                    b.HasKey("ISBN");
+                    b.HasKey("Id");
 
                     b.ToTable("Books");
                 });
@@ -75,8 +85,8 @@ namespace BetterReads.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BookISBN")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
 
                     b.Property<int>("BookStatus")
                         .HasColumnType("int");
@@ -89,7 +99,7 @@ namespace BetterReads.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookISBN");
+                    b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
 
@@ -100,7 +110,9 @@ namespace BetterReads.Data.Migrations
                 {
                     b.HasOne("BetterReads.Data.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookISBN");
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BetterReads.Data.Models.User", "User")
                         .WithMany()

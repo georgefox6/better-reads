@@ -1,33 +1,38 @@
-using Microsoft.AspNetCore.Mvc;
+using BetterReads.Api.Request.Book;
+using BetterReads.Api.Response.Book;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace BetterReads.Controllers;
+namespace BetterReads.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class BookController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
+    private readonly IMediator mediator;
     private readonly ILogger<BookController> _logger;
 
-    public BookController(ILogger<BookController> logger)
+    public BookController(IMediator mediator, ILogger<BookController> logger)
     {
+        this.mediator = mediator;
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetBook")]
-    public IEnumerable<WeatherForecast> Get()
+    /// <summary>
+    /// Get Book
+    /// </summary>
+    /// <param name="ISBN">A string which represents the ISBN (International Standard Book Number) of a book.</param>
+    /// <returns> A GetBookResponse <see cref="GetBookResponse"/>.</returns>
+    [HttpGet]
+    [Route("")]
+    public async Task<IActionResult> GetBook(string ISBN)
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        var request = new GetBookRequest
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            ISBN = ISBN
+        };
+        var result = await mediator.Send(request);
+
+        return Ok(result);
     }
 }
