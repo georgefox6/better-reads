@@ -1,5 +1,7 @@
 using BetterReads.Api.Exceptions.Infrastructure;
 using BetterReads.Data;
+using BetterReads.Data.Enums;
+using DocumentFormat.OpenXml.CustomXmlSchemaReferences;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -34,6 +36,7 @@ builder.Services.AddSwaggerGen(c =>
     });
     var filePath = Path.Combine(AppContext.BaseDirectory, "BetterReads.Api.xml");
     c.IncludeXmlComments(filePath);
+    
 });
 
 var app = builder.Build();

@@ -1,14 +1,11 @@
-﻿using BetterReads.Api.Exceptions.BookNotFound;
-using BetterReads.Api.Request.Book;
+﻿using BetterReads.Api.Request.Book;
 using BetterReads.Api.Response;
 using BetterReads.Api.Response.Book;
 using BetterReads.Data;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using BetterReads.Api.Exceptions.ISBNNotValid;
 using BetterReads.Api.Exceptions.PageNumberNotValid;
-using BetterReads.Data.Enums;
 
 namespace BetterReads.Api.Handlers.Book
 {
@@ -28,19 +25,19 @@ namespace BetterReads.Api.Handlers.Book
 
             if (string.IsNullOrEmpty(request.ISBN))
             {
-                logger.LogError("The ISBN supplied is not valid. Null.");
+                logger.LogWarning("The ISBN supplied is not valid. Null.");
                 throw new ISBNNotValidException();
             }
 
             if (!Regex.Match(request.ISBN, @"^[0-9]{13}$").Success)
             {
-                logger.LogError("The ISBN supplied is not valid. The value should be 13 numeric characters.");
+                logger.LogWarning("The ISBN supplied is not valid. The value should be 13 numeric characters.");
                 throw new ISBNNotValidException();
             }
 
             if (!IsValidPageNumber(request.Pages))
             {
-                logger.LogError("The number of pages supplied is not valid. The value should be between 1 and 3031");
+                logger.LogWarning("The number of pages supplied is not valid. The value should be between 1 and 3031");
                 throw new PageNumberNotValidException();
             }
 
@@ -77,6 +74,11 @@ namespace BetterReads.Api.Handlers.Book
             return response;
         }
 
+        /// <summary>
+        /// Checks the validity of the number of pages supplied by the user.
+        /// </summary>
+        /// <param name="pages"></param>
+        /// <returns></returns>
         public bool IsValidPageNumber(int pages)
         {
             switch (pages)
