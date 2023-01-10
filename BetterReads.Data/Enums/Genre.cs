@@ -13,5 +13,5 @@ public enum Genre
     Science = 8,
     Romance = 9,
     History = 10,
-    Biography = 11
+    Biography = 11,
 }

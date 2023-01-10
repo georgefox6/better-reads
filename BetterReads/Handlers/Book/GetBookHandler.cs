@@ -26,11 +26,13 @@ namespace BetterReads.Api.Handlers.Book
 
             if (string.IsNullOrEmpty(request.ISBN))
             {
+                logger.LogWarning("The ISBN supplied is not valid. Null.");
                 throw new ISBNNotValidException();
             }
 
             if (!Regex.Match(request.ISBN, @"^[0-9]{13}$").Success)
             {
+                logger.LogWarning("The ISBN supplied is not valid. The value should be 13 numeric characters.");
                 throw new ISBNNotValidException();
             }
 
@@ -38,7 +40,7 @@ namespace BetterReads.Api.Handlers.Book
 
             if (book == null)
             {
-                logger.LogError("A book with that ISBN has not been found");
+                logger.LogWarning("A book with that ISBN has not been found");
                 throw new BookNotFoundException();
             }
 
