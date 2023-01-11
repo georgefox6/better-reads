@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterReads.Api", "BetterRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterReads.Data", "BetterReads.Data\BetterReads.Data.csproj", "{5CC40E6A-EDF2-46EA-A46D-FF85B35ED3A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterReads.Api.Tests", "BetterReads.Api.Tests\BetterReads.Api.Tests.csproj", "{9EEFE7E0-7513-4F00-BD5C-8FBDFAC97483}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5CC40E6A-EDF2-46EA-A46D-FF85B35ED3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CC40E6A-EDF2-46EA-A46D-FF85B35ED3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CC40E6A-EDF2-46EA-A46D-FF85B35ED3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EEFE7E0-7513-4F00-BD5C-8FBDFAC97483}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EEFE7E0-7513-4F00-BD5C-8FBDFAC97483}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EEFE7E0-7513-4F00-BD5C-8FBDFAC97483}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EEFE7E0-7513-4F00-BD5C-8FBDFAC97483}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

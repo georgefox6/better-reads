@@ -16,4 +16,11 @@ public class BetterReadsContext : DbContext
     public BetterReadsContext(DbContextOptions<BetterReadsContext> options) : base(options)
     {
     }
+
+    public void CleanDatabase()
+    {
+        Books.RemoveRange(Books);
+        Users.RemoveRange(Users);
+        UserBookInteractions.RemoveRange(UserBookInteractions);
+    }
 }

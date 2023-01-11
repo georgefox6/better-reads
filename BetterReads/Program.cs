@@ -1,7 +1,5 @@
 using BetterReads.Api.Exceptions.Infrastructure;
 using BetterReads.Data;
-using BetterReads.Data.Enums;
-using DocumentFormat.OpenXml.CustomXmlSchemaReferences;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
