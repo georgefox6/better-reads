@@ -71,13 +71,13 @@ namespace BetterReads.Api.Handlers.Book
                     {
                         Entity = "Book",
                         Action = "GET",
-                        URL = "/Book?ISBN=<id>"
+                        URL = "/Book/<ISBN>"
                     },
                     new ResponseLink
                     {
                         Entity = "Book",
                         Action = "POST",
-                        URL = "/Book?ISBN=<id>&Name=<name>&Author=<author>&Pages=<pages>&Genre=<genre>"
+                        URL = "/Book/<ISBN>"
                     }
                 }
             };
