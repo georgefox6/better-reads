@@ -2,7 +2,7 @@
 
 namespace BetterReads.Data.Models;
 
-public class UserBookInteraction
+public class UserBookInteraction : BaseEntity
 {
     public int Id { get; set; }
     public User User { get; set; }

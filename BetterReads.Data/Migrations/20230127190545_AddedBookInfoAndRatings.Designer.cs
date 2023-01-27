@@ -4,6 +4,7 @@ using BetterReads.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BetterReads.Data.Migrations
 {
     [DbContext(typeof(BetterReadsContext))]
-    partial class BetterReadsContextModelSnapshot : ModelSnapshot
+    [Migration("20230127190545_AddedBookInfoAndRatings")]
+    partial class AddedBookInfoAndRatings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,46 +79,6 @@ namespace BetterReads.Data.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BetterReads.Data.Models.BookRating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BookISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("FiveStarRatings")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FourStarRatings")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OneStarRatings")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ThreeStarRatings")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TwoStarRatings")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookISBN");
-
-                    b.ToTable("BookRatings");
-                });
-
             modelBuilder.Entity("BetterReads.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -176,17 +139,6 @@ namespace BetterReads.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserBookInteractions");
-                });
-
-            modelBuilder.Entity("BetterReads.Data.Models.BookRating", b =>
-                {
-                    b.HasOne("BetterReads.Data.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookISBN")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("BetterReads.Data.Models.UserBookInteraction", b =>
